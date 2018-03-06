@@ -1,19 +1,7 @@
 ﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Xml.Serialization;
 using XMLManager;
 
@@ -27,36 +15,58 @@ namespace XMLReader
         public MainWindow()
         {
             InitializeComponent();
+            mainWindow1.Title = "XML Reader 1.0.0.2";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             listBox1.Items.Clear();
 
-
             OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "XML Files (*.xml;*.XML)|*.xml;*.XML";
             if (openFileDialog.ShowDialog() == true)
                 File.ReadAllText(openFileDialog.FileName);
             string path = openFileDialog.FileName.ToString();
 
-            label1.Content = "Wczytany plik: " + path;
+            if (path != null && path != "")
+            {
+                label1.Content = "Wczytany plik: " + path;
+            }
+            else
+            {
+                label1.Content = "Nie wczytano pliku!";
+                    }
 
-            FileStream fs = File.OpenRead(path); // utworzenie strumienia i wczytanie pliku xml
-            ExportData obiekt = (ExportData)new XmlSerializer(typeof(ExportData)).Deserialize(fs); // deserializacja do obiektu klasy Produkty
+            try
+            {
+                FileStream fs = File.OpenRead(path); // utworzenie strumienia i wczytanie pliku xml
+                ExportData obiekt = (ExportData)new XmlSerializer(typeof(ExportData)).Deserialize(fs); // deserializacja do obiektu klasy Produkty
 
-            var tmp = obiekt.Header.Project.QuoteData.Prices.SellingPrices.Material_List.Material;
+                var tmp = obiekt.Header.Project.QuoteData.Prices.SellingPrices.Material_List.Material;
 
-            foreach (var tmpitem in tmp)
+                foreach (var tmpitem in tmp)
+                {
+
+                    listBox1.Items.Add(tmpitem.MATERIAL_OBJECT_TYPE.ToString() + "            " + tmpitem.PRICE);
+                }
+                listBox1.Items.Add("KONIEC");
+            }
+            catch
             {
 
-                listBox1.Items.Add(tmpitem.MATERIAL_OBJECT_TYPE.ToString() + "            " + tmpitem.PRICE);
             }
-            listBox1.Items.Add("KONIEC");
         }
 
         private void listBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Clipboard.SetText(listBox1.SelectedValue.ToString());
+            try
+            {
+                Clipboard.SetText(listBox1.SelectedValue.ToString());
+            }
+            catch
+            {
+
+            }
         }
     }
 }
