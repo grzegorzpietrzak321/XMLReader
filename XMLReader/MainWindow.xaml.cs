@@ -26,35 +26,33 @@ namespace XMLReader
             openFileDialog.Filter = "XML Files (*.xml;*.XML)|*.xml;*.XML";
             if (openFileDialog.ShowDialog() == true)
                 File.ReadAllText(openFileDialog.FileName);
-            string path = openFileDialog.FileName.ToString();
+            string xmlPath = openFileDialog.FileName.ToString();
 
-            if (path != null && path != "")
+            if (xmlPath != null && xmlPath != "")
             {
-                label1.Content = "Wczytany plik: " + path;
+                label1.Content = "Wczytany plik: " + xmlPath;
             }
             else
             {
                 label1.Content = "Nie wczytano pliku!";
-                    }
+            }
 
             try
             {
-                FileStream fs = File.OpenRead(path); // utworzenie strumienia i wczytanie pliku xml
-                ExportData obiekt = (ExportData)new XmlSerializer(typeof(ExportData)).Deserialize(fs); // deserializacja do obiektu klasy Produkty
-
-                var tmp = obiekt.Header.Project.QuoteData.Prices.SellingPrices.Material_List.Material;
-
-                foreach (var tmpitem in tmp)
+                using (FileStream fs = File.OpenRead(xmlPath))// utworzenie strumienia i wczytanie pliku xml
                 {
+                    ExportData obiekt = (ExportData)new XmlSerializer(typeof(ExportData)).Deserialize(fs); // deserializacja do obiektu klasy Produkty
+                    var tmp = obiekt.Header.Project.QuoteData.Prices.SellingPrices.Material_List.Material;
 
-                    listBox1.Items.Add(tmpitem.MATERIAL_OBJECT_TYPE.ToString() + "            " + tmpitem.PRICE);
+                    foreach (var tmpitem in tmp)
+                    {
+                        listBox1.Items.Add(tmpitem.MATERIAL_OBJECT_TYPE.ToString() + "            " + tmpitem.PRICE);
+                    }
+
+                    listBox1.Items.Add("KONIEC");
                 }
-                listBox1.Items.Add("KONIEC");
             }
-            catch
-            {
-
-            }
+            catch { }
         }
 
         private void listBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -63,10 +61,7 @@ namespace XMLReader
             {
                 Clipboard.SetText(listBox1.SelectedValue.ToString());
             }
-            catch
-            {
-
-            }
+            catch { }
         }
     }
 }

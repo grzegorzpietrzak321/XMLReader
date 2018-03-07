@@ -122,5 +122,11 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="xml_ico.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="xmld_ico24.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
