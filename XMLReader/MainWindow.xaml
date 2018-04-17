@@ -8,8 +8,11 @@
         Title="XMLReader" Height="377.451" Width="889.706" x:Name="mainWindow1" Icon="xmld_ico24.png">
     <Grid>
         <Button Content="Wczytaj plik..." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click" BorderThickness="1"/>
-        <ListBox x:Name="listBox1" Margin="10,51,10,10" SelectionChanged="listBox1_SelectionChanged"/>
-        <Label x:Name="label1" Content="Po kliknięciu w poniższym polu zaznaczone dane są automatycznie kopiowane do schowka!" Margin="90,7,10,300"/>
+        <ListBox x:Name="listBox1" Margin="10,85,502,10" SelectionChanged="listBox1_SelectionChanged"/>
+        <Label x:Name="label1" Content="Po kliknięciu w poniższym polu zaznaczone dane są automatycznie kopiowane do schowka!" Margin="90,7,502,284"/>
+        <Button Content="Wczytaj plik..." HorizontalAlignment="Left" Margin="502,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_Copy" BorderThickness="1"/>
+        <ListBox x:Name="listBox2" Margin="502,85,10,10" SelectionChanged="listBox1_SelectionChanged"/>
+        <Label x:Name="label2" Content="Po kliknięciu w poniższym polu zaznaczone dane są automatycznie kopiowane do schowka!" Margin="582,7,10,284"/>
 
     </Grid>
 </Window>

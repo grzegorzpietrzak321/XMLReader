@@ -3,11 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XMLReader", "XMLReader\XMLReader.csproj", "{6953CDFD-FDF7-4042-9900-253B77C419A6}"
-	ProjectSection(ProjectDependencies) = postProject
-		{559F21E5-1C1E-4DCA-B68D-93C58409BDF0} = {559F21E5-1C1E-4DCA-B68D-93C58409BDF0}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XMLReaderBRLib", "..\..\..\Desktop\it-20180305T200638Z-001\test schema\XMLReaderBR.xsd.Output\SourceCodeCS\XMLReaderBRLib.csproj", "{559F21E5-1C1E-4DCA-B68D-93C58409BDF0}"
 EndProject
 Global
@@ -16,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6953CDFD-FDF7-4042-9900-253B77C419A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6953CDFD-FDF7-4042-9900-253B77C419A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6953CDFD-FDF7-4042-9900-253B77C419A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6953CDFD-FDF7-4042-9900-253B77C419A6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{559F21E5-1C1E-4DCA-B68D-93C58409BDF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{559F21E5-1C1E-4DCA-B68D-93C58409BDF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{559F21E5-1C1E-4DCA-B68D-93C58409BDF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -29,6 +20,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {E18E685A-2BBA-4683-8638-9EEE2ED06223}
+		SolutionGuid = {2A5ADCF9-22C9-4CC7-AFCD-37C49994D957}
 	EndGlobalSection
 EndGlobal

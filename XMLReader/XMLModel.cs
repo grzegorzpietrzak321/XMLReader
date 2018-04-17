@@ -165,14 +165,5 @@ namespace XMLManager
             set
             { this._headerField = value; }
         }
-
-        
-
-        
     }
 }
-
-
-
-
-

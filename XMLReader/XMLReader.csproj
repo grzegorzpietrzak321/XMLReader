@@ -49,6 +49,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LiquidTechnologies.Runtime.Net45, Version=16.0.4.0, Culture=neutral, PublicKeyToken=64bee40f6e1c14f0" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -70,6 +71,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Class2.cs" />
+    <Compile Include="FileDialog.cs" />
+    <Compile Include="FileReader.cs" />
     <Compile Include="XMLModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

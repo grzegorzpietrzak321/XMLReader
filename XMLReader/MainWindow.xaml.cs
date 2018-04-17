@@ -1,9 +1,13 @@
 ﻿using Microsoft.Win32;
+using System;
+using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Xml.Serialization;
 using XMLManager;
+//using static XMLReader.FileReader;
+//using XMLManager;
 
 namespace XMLReader
 {
@@ -21,12 +25,8 @@ namespace XMLReader
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             listBox1.Items.Clear();
-
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "XML Files (*.xml;*.XML)|*.xml;*.XML";
-            if (openFileDialog.ShowDialog() == true)
-                File.ReadAllText(openFileDialog.FileName);
-            string xmlPath = openFileDialog.FileName.ToString();
+            
+            string xmlPath = FileDialog.ReturnPath();
 
             if (xmlPath != null && xmlPath != "")
             {
@@ -37,29 +37,101 @@ namespace XMLReader
                 label1.Content = "Nie wczytano pliku!";
             }
 
+            //.QuoteData.Prices.SellingPrices.Material_List.Material;
+
             try
             {
                 using (FileStream fs = File.OpenRead(xmlPath))// utworzenie strumienia i wczytanie pliku xml
                 {
                     ExportData obiekt = (ExportData)new XmlSerializer(typeof(ExportData)).Deserialize(fs); // deserializacja do obiektu klasy Produkty
                     var tmp = obiekt.Header.Project.QuoteData.Prices.SellingPrices.Material_List.Material;
+                    string t;
+                    decimal tprice = 0;
 
+                    IFormatProvider provider = CultureInfo.InvariantCulture;
                     foreach (var tmpitem in tmp)
                     {
-                        listBox1.Items.Add(tmpitem.MATERIAL_OBJECT_TYPE.ToString() + "            " + tmpitem.PRICE);
-                    }
+                        if (tmpitem.MATERIAL_OBJECT_TYPE.ToString() != "BackFill")
+                        {
+                            t = tmpitem.MATERIAL_OBJECT_TYPE.ToString() + "            " + tmpitem.PRICE;
+                            tprice += Decimal.Parse(tmpitem.PRICE.ToString(), CultureInfo.InvariantCulture);
+                        }
+                        else { t = "FILLINGS" + "            " + tmpitem.PRICE; }
 
+                        listBox1.Items.Add(t);
+                    }
+                    listBox1.Items.Add("MATERIAL            " + tprice);
                     listBox1.Items.Add("KONIEC");
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void listBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
             {
-                Clipboard.SetText(listBox1.SelectedValue.ToString());
+               string t = listBox1.SelectedValue.ToString().Substring(15).ToString();
+                Clipboard.SetText(Decimal.Parse(t, CultureInfo.InvariantCulture).ToString());
+            }
+            catch { }
+        }
+
+        private void Button_Click_Copy(object sender, RoutedEventArgs e)
+        {
+            listBox2.Items.Clear();
+            
+            string xmlPath = FileDialog.ReturnPath();
+            if (xmlPath != null && xmlPath != "")
+            {
+                label2.Content = "Wczytany plik: " + xmlPath;
+            }
+            else
+            {
+                label2.Content = "Nie wczytano pliku!";
+            }
+
+            //.QuoteData.Prices.SellingPrices.Material_List.Material;
+
+            try
+            {
+                using (FileStream fs = File.OpenRead(xmlPath))// utworzenie strumienia i wczytanie pliku xml
+                {
+                    ExportData obiekt = (ExportData)new XmlSerializer(typeof(ExportData)).Deserialize(fs); // deserializacja do obiektu klasy Produkty
+                    var tmp2 = obiekt.Header.Project.QuoteData.Prices.SellingPrices.Material_List.Material;
+                    string t2;
+                    decimal tprice2 = 0;
+
+                    IFormatProvider provider = CultureInfo.InvariantCulture;
+                    foreach (var tmpitem in tmp2)
+                    {
+                        if (tmpitem.MATERIAL_OBJECT_TYPE.ToString() != "BackFill")
+                        {
+                            t2 = tmpitem.MATERIAL_OBJECT_TYPE.ToString() + "            " + tmpitem.PRICE;
+                            tprice2 += Decimal.Parse(tmpitem.PRICE.ToString(), CultureInfo.InvariantCulture);
+                        }
+                        else { t2 = "FILLINGS" + "            " + tmpitem.PRICE; }
+
+                        listBox2.Items.Add(t2);
+                    }
+                    listBox2.Items.Add("MATERIAL            " + tprice2);
+                    listBox2.Items.Add("KONIEC");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void listBox2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                Clipboard.SetText(listBox2.SelectedValue.ToString());
             }
             catch { }
         }
